@@ -30,4 +30,26 @@ public class CityController {
     public City createCity(@RequestBody City city) {
         return cityRepository.save(city);
     }
+    @PutMapping("/{id}")
+    public City updateCity(@PathVariable Long id, @RequestBody City updatedCity) {
+        City city = cityRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("City not found with id: " + id));
+
+        city.setName(updatedCity.getName());
+        city.setX(updatedCity.getX());
+        city.setY(updatedCity.getY());
+        city.setPopulation(updatedCity.getPopulation());
+        city.setRegion(updatedCity.getRegion());
+
+        return cityRepository.save(city);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCity(@PathVariable Long id) {
+        if (!cityRepository.existsById(id)) {
+            throw new RuntimeException("City not found with id: " + id);
+        }
+        cityRepository.deleteById(id);
+    }
+    
 }

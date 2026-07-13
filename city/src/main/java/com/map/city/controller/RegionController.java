@@ -30,4 +30,23 @@ public class RegionController {
     public Region createRegion(@RequestBody Region region) {
         return regionRepository.save(region);
     }
+    @PutMapping("/{id}")
+    public Region updateRegion(@PathVariable Long id, @RequestBody Region updatedRegion) {
+        Region region = regionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Region not found with id: " + id));
+
+        region.setName(updatedRegion.getName());
+        region.setDescription(updatedRegion.getDescription());
+        region.setParentRegion(updatedRegion.getParentRegion());
+
+        return regionRepository.save(region);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteRegion(@PathVariable Long id) {
+        if (!regionRepository.existsById(id)) {
+            throw new RuntimeException("Region not found with id: " + id);
+        }
+        regionRepository.deleteById(id);
+    }
 }
