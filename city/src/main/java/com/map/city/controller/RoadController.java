@@ -24,4 +24,24 @@ public class RoadController {
     public Road createRoad(@RequestBody Road road) {
         return roadRepository.save(road);
     }
+    @PutMapping("/{id}")
+    public Road updateRoad(@PathVariable Long id, @RequestBody Road updatedRoad) {
+        Road road = roadRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Road not found with id: " + id));
+
+        road.setFromCity(updatedRoad.getFromCity());
+        road.setToCity(updatedRoad.getToCity());
+        road.setDistance(updatedRoad.getDistance());
+        road.setTerrain(updatedRoad.getTerrain());
+
+        return roadRepository.save(road);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteRoad(@PathVariable Long id) {
+        if (!roadRepository.existsById(id)) {
+            throw new RuntimeException("Road not found with id: " + id);
+        }
+        roadRepository.deleteById(id);
+    }
 }

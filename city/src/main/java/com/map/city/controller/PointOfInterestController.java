@@ -30,4 +30,25 @@ public class PointOfInterestController {
     public PointOfInterest createPointOfInterest(@RequestBody PointOfInterest poi) {
         return pointOfInterestRepository.save(poi);
     }
+    @PutMapping("/{id}")
+    public PointOfInterest updatePointOfInterest(@PathVariable Long id, @RequestBody PointOfInterest updatedPoi) {
+        PointOfInterest poi = pointOfInterestRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Point of interest not found with id: " + id));
+
+        poi.setName(updatedPoi.getName());
+        poi.setType(updatedPoi.getType());
+        poi.setX(updatedPoi.getX());
+        poi.setY(updatedPoi.getY());
+        poi.setRegion(updatedPoi.getRegion());
+
+        return pointOfInterestRepository.save(poi);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePointOfInterest(@PathVariable Long id) {
+        if (!pointOfInterestRepository.existsById(id)) {
+            throw new RuntimeException("Point of interest not found with id: " + id);
+        }
+        pointOfInterestRepository.deleteById(id);
+    }
 }
