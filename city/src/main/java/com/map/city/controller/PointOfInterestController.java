@@ -3,6 +3,7 @@ package com.map.city.controller;
 import com.map.city.entity.PointOfInterest;
 import com.map.city.repository.PointOfInterestRepository;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,11 +28,11 @@ public class PointOfInterestController {
     }
 
     @PostMapping
-    public PointOfInterest createPointOfInterest(@RequestBody PointOfInterest poi) {
+    public PointOfInterest createPointOfInterest(@Valid @RequestBody PointOfInterest poi) {
         return pointOfInterestRepository.save(poi);
     }
     @PutMapping("/{id}")
-    public PointOfInterest updatePointOfInterest(@PathVariable Long id, @RequestBody PointOfInterest updatedPoi) {
+    public PointOfInterest updatePointOfInterest(@PathVariable Long id, @Valid @RequestBody PointOfInterest updatedPoi) {
         PointOfInterest poi = pointOfInterestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Point of interest not found with id: " + id));
 

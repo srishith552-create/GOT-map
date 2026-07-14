@@ -1,5 +1,5 @@
 package com.map.city.entity;
-
+import jakarta.validation.constraints.*;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,6 +17,7 @@ public class Road {
     @JoinColumn(name = "to_city_id")
     private City toCity;
 
+    @Positive(message = "Distance must be a positive number")
     private double distance; 
     private String terrain;  
 

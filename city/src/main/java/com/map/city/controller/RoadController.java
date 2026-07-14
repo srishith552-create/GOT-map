@@ -3,6 +3,7 @@ package com.map.city.controller;
 import com.map.city.entity.Road;
 import com.map.city.repository.RoadRepository;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,11 +22,11 @@ public class RoadController {
     }
 
     @PostMapping
-    public Road createRoad(@RequestBody Road road) {
+    public Road createRoad(@Valid @RequestBody Road road) {
         return roadRepository.save(road);
     }
     @PutMapping("/{id}")
-    public Road updateRoad(@PathVariable Long id, @RequestBody Road updatedRoad) {
+    public Road updateRoad(@PathVariable Long id, @Valid @RequestBody Road updatedRoad) {
         Road road = roadRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Road not found with id: " + id));
 

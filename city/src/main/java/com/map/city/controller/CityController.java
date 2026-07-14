@@ -3,6 +3,7 @@ package com.map.city.controller;
 import com.map.city.entity.City;
 import com.map.city.repository.CityRepository;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,11 +28,11 @@ public class CityController {
     }
 
     @PostMapping
-    public City createCity(@RequestBody City city) {
+    public City createCity(@Valid @RequestBody City city) {
         return cityRepository.save(city);
     }
     @PutMapping("/{id}")
-    public City updateCity(@PathVariable Long id, @RequestBody City updatedCity) {
+    public City updateCity(@PathVariable Long id, @Valid @RequestBody City updatedCity) {
         City city = cityRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("City not found with id: " + id));
 

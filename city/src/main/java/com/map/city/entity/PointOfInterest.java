@@ -1,5 +1,5 @@
 package com.map.city.entity;
-
+import jakarta.validation.constraints.*;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,8 +9,10 @@ public class PointOfInterest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Point of interest name is required")
     private String name;
-    private String type; // "landmark", "castle", "ruin", "temple", etc.
+     @NotBlank(message = "Type is required")
+    private String type; 
     private double x;
     private double y;
 

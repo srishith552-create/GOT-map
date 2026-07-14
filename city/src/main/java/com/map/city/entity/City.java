@@ -1,6 +1,7 @@
 package com.map.city.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class City {
@@ -9,15 +10,20 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "City name is required")
     private String name;
+
     private double x;
     private double y;
+
+    @Positive(message = "Population must be a positive number")
     private Integer population;
 
     @ManyToOne
     @JoinColumn(name = "region_id")
     private Region region;
 
+    
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getName() { return name; }

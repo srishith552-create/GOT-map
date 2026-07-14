@@ -3,6 +3,7 @@ package com.map.city.controller;
 import com.map.city.entity.Region;
 import com.map.city.repository.RegionRepository;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,11 +28,11 @@ public class RegionController {
     }
 
     @PostMapping
-    public Region createRegion(@RequestBody Region region) {
+    public Region createRegion(@Valid @RequestBody Region region) {
         return regionRepository.save(region);
     }
     @PutMapping("/{id}")
-    public Region updateRegion(@PathVariable Long id, @RequestBody Region updatedRegion) {
+    public Region updateRegion(@PathVariable Long id, @Valid @RequestBody Region updatedRegion) {
         Region region = regionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Region not found with id: " + id));
 

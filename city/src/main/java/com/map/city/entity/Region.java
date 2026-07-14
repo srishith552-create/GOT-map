@@ -1,5 +1,5 @@
 package com.map.city.entity;
-
+import jakarta.validation.constraints.*;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,7 +8,8 @@ public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    @NotBlank(message = "Region name is required")
     private String name;
     private String description;
 
